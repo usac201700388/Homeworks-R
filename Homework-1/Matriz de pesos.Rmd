@@ -1,0 +1,26 @@
+Weight control
+
+```{r}
+Weights <- c(174.26, 165.48, 169.71, 179.33, 188.95, 170.42, 175.04, 185.63, 182.91, 161.83, 187.74, 176.51, 181.42, 197.29, 177.17, 198.63, 171.35, 194.82, 190.22, 164.15, 168.76, 196.68, 199.43, 172.11, 183.65)
+
+Weights_matrix <- matrix(Weights, byrow = TRUE, nrow = 5)
+#Weights_matrix
+
+month_mean <- colMeans(Weights_matrix)
+total_matrix1 <- rbind(Weights_matrix, month_mean)
+
+participant_mean <- rowMeans(total_matrix1)
+total_matrix <- cbind(total_matrix1, participant_mean)
+
+month_names <- c("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Promedio del mes")
+participant_names <- c("Diego", "Jose", "Daniel", "Maria", "Ana", "Promedio por persona")
+
+colnames(total_matrix) <- month_names
+rownames(total_matrix) <- participant_names
+
+total_matrix
+
+```
+
+
+
