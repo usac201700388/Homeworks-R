@@ -1,0 +1,77 @@
+Como leer archivos CSV
+
+Para leer los archivos CSV se pueden utilizar 2 comandos: read.csv y read.csv2
+Algunos de los argumentos son:
+
+file                 Nombre del archivo o ruta donde se encuentra el archivo
+header = TRUE        Leer el encabezado 
+sep = ","            Separador de los valores
+dec = "."            Punto decimal
+
+La diferencia de read.csv2 es que el separador de datos es el punto y coma y el 
+separador decimal es la coma.
+
+sep = ","
+dec = "."
+
+Con ambos comandos la salida será de clase data.frame, la cual se puede almace-
+nar en una variable 
+
+my_file <- read.csv("file_name.csv")
+
+select():
+Esta función consiste en elegir un subconjunto de las variables (columnas) de un
+data.frame. Es posible seleccionar un rango de variables utilizando ":" o elegir 
+todas las variables excluyendo algunas. Otra posibilidad es seleccionar las 
+variables cuyos nombres contengan ciertos términos. 
+Sintaxis:
+
+select(df, <columns>)
+
+
+```{r}
+library(dplyr)
+
+dataset_results <- read.csv("primary_results.csv")
+
+#1
+florida <- filter(dataset_results, state == "Florida")
+
+#2
+ClintonorTrump <- filter(dataset_results, candidate == "Hillary Clinton" | candidate == "Donald Trump")
+DemocratandShelby <- filter(dataset_results, county == "Shelby" & party == "Democrat")
+AlabamaAndMoreThan15000 <- filter(dataset_results, state == "Alabama" & votes > 15000)
+
+#3
+Denton <- filter(dataset_results, county == "Denton")
+PartyCandidateVotes <- select(Denton, party:votes)
+Votos <- arrange(PartyCandidateVotes, desc(votes))
+
+#4
+RepublicanCruzAlaska <- filter(dataset_results, candidate == "Ted Cruz" & state == "Alaska")
+New_Column <- mutate(RepublicanCruzAlaska, vote_count = votes/fraction_votes)
+Final <- arrange(New_Column, desc(vote_count))
+
+#Resultados
+#1
+florida
+
+#2
+ClintonorTrump 
+DemocratandShelby
+AlabamaAndMoreThan15000
+
+#3
+Votos
+
+#4
+Final
+
+
+
+```
+
+
+
+
+
